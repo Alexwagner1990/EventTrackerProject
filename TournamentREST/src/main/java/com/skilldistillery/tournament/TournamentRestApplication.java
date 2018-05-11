@@ -1,4 +1,4 @@
-package com.skilldistillery.rest;
+package com.skilldistillery.tournament;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

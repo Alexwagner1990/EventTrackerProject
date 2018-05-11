@@ -7,7 +7,14 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema tournamentdb
 -- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `tournamentdb` ;
+
+-- -----------------------------------------------------
+-- Schema tournamentdb
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `tournamentdb` DEFAULT CHARACTER SET utf8 ;
 SHOW WARNINGS;
+USE `tournamentdb` ;
 
 -- -----------------------------------------------------
 -- Table `tournament`
@@ -29,6 +36,7 @@ CREATE TABLE IF NOT EXISTS `tournament` (
 ENGINE = InnoDB;
 
 SHOW WARNINGS;
+USE `tournamentdb` ;
 
 -- -----------------------------------------------------
 -- Placeholder table for view `view1`
@@ -43,6 +51,8 @@ DROP VIEW IF EXISTS `view1` ;
 SHOW WARNINGS;
 DROP TABLE IF EXISTS `view1`;
 SHOW WARNINGS;
+USE `tournamentdb`;
+
 SHOW WARNINGS;
 SET SQL_MODE = '';
 GRANT USAGE ON *.* TO tournamentplayer@localhost;
@@ -62,6 +72,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- Data for table `tournament`
 -- -----------------------------------------------------
 START TRANSACTION;
+USE `tournamentdb`;
 INSERT INTO `tournament` (`id`, `name`, `start_date`, `rounds_won`, `rounds_lost`, `rounds_drawn`, `place`, `type`, `total_players`) VALUES (DEFAULT, 'Weekend Tournament', '2018-01-01', 3, 3, 0, 5, DEFAULT, NULL);
 INSERT INTO `tournament` (`id`, `name`, `start_date`, `rounds_won`, `rounds_lost`, `rounds_drawn`, `place`, `type`, `total_players`) VALUES (DEFAULT, 'Easygoing Tournament', '2018-02-01', 4, 1, 1, 3, DEFAULT, NULL);
 INSERT INTO `tournament` (`id`, `name`, `start_date`, `rounds_won`, `rounds_lost`, `rounds_drawn`, `place`, `type`, `total_players`) VALUES (DEFAULT, 'Challanging Tournament', '2018-03-01', 2, 6, 1, 15, DEFAULT, NULL);
