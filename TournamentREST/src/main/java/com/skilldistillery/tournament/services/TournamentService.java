@@ -6,6 +6,7 @@ import com.skilldistillery.tournament.entities.Tournament;
 
 public interface TournamentService {
 
+	public Tournament getTournamentById(int id);
 	public List<Tournament> getAllTournaments();
 	public Tournament createTournament(Tournament tournament);
 	public Boolean deleteTournament(int id);

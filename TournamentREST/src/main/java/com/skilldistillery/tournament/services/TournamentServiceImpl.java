@@ -1,6 +1,7 @@
 package com.skilldistillery.tournament.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -77,6 +78,15 @@ public class TournamentServiceImpl implements TournamentService {
 	public List<Tournament> findTournamentByKeyword(String keyword) {
 		String sqlKeyword = "%" + keyword + "%";
 		return tournamentRepo.findByNameLikeOrTypeLikeOrDescriptionLike(sqlKeyword, sqlKeyword, sqlKeyword);
+	}
+
+	@Override
+	public Tournament getTournamentById(int id) {
+		Optional<Tournament> ifFound = tournamentRepo.findById(id);
+		if(ifFound.isPresent()) {
+			return ifFound.get();
+		}
+		return null;
 	}
 	
 	

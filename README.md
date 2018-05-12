@@ -4,6 +4,8 @@
 
 This project can be run by running the TournamentREST project as a Spring Boot app. Once the app runs successfully, the data can be accessed via Postman from localhost8080/api/tournament/{controller route here}. The app uses MySQL with some test data - this can be accessed using the MySQL credentials tournamentplayer (user) and tournament(password). The app can also be run on the AWS server, with the address http://13.58.147.59:8080 (TBD)
 
+The user can find a tournament by id with the path /api/tournament/{id of tournament} (GET request) - On the front end this will be used when selecting form the search by keyword results.
+
 The user can find a tournament by keyword with the path /api/tournament/{your keyword} (GET request)
 
 The user can create a tournament with the path /api/tournament/new, with a body of the JSON of a valid Tournament object. The method will check if the tournament was created with no name and return a null if the title is empty.  (POST request)

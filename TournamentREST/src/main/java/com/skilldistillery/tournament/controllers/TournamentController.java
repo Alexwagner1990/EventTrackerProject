@@ -66,4 +66,9 @@ public class TournamentController {
 	public List<Tournament> findTournamentByKeyword(@PathVariable String keyword){
 		return tournamentService.findTournamentByKeyword(keyword); 
 	}
+	
+	@RequestMapping(path="{id}", method=RequestMethod.GET)
+	public Tournament getTournamentById(@PathVariable int id){
+		return tournamentService.getTournamentById(id); 
+	}
 }
