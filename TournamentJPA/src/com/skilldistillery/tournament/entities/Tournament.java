@@ -21,15 +21,16 @@ public class Tournament {
 	@Column(name="start_date")
 	private Date startDate;
 	@Column(name="rounds_won")
-	private int roundsWon;
+	private Integer roundsWon;
 	@Column(name="rounds_lost")
-	private int roundsLost;
+	private Integer roundsLost;
 	@Column(name="rounds_drawn")
-	private int roundsDrawn;
+	private Integer roundsDrawn;
 	private Integer place;
 	private String type;
 	@Column(name="total_players")
 	private Integer totalPlayers;
+	private String description;
 	
 	public Tournament() {}
 
@@ -57,27 +58,27 @@ public class Tournament {
 		this.startDate = startDate;
 	}
 
-	public int getRoundsWon() {
+	public Integer getRoundsWon() {
 		return roundsWon;
 	}
 
-	public void setRoundsWon(int roundsWon) {
+	public void setRoundsWon(Integer roundsWon) {
 		this.roundsWon = roundsWon;
 	}
 
-	public int getRoundsLost() {
+	public Integer getRoundsLost() {
 		return roundsLost;
 	}
 
-	public void setRoundsLost(int roundsLost) {
+	public void setRoundsLost(Integer roundsLost) {
 		this.roundsLost = roundsLost;
 	}
 
-	public int getRoundsDrawn() {
+	public Integer getRoundsDrawn() {
 		return roundsDrawn;
 	}
 
-	public void setRoundsDrawn(int roundsDrawn) {
+	public void setRoundsDrawn(Integer roundsDrawn) {
 		this.roundsDrawn = roundsDrawn;
 	}
 
@@ -103,6 +104,14 @@ public class Tournament {
 
 	public void setTotalPlayers(Integer totalPlayers) {
 		this.totalPlayers = totalPlayers;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 	

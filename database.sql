@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS `tournament` (
   `place` INT NULL,
   `type` VARCHAR(100) NOT NULL DEFAULT 'Default',
   `total_players` INT NULL,
+  `description` VARCHAR(10000) NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -73,10 +74,10 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `tournamentdb`;
-INSERT INTO `tournament` (`id`, `name`, `start_date`, `rounds_won`, `rounds_lost`, `rounds_drawn`, `place`, `type`, `total_players`) VALUES (DEFAULT, 'Weekend Tournament', '2018-01-01', 3, 3, 0, 5, DEFAULT, NULL);
-INSERT INTO `tournament` (`id`, `name`, `start_date`, `rounds_won`, `rounds_lost`, `rounds_drawn`, `place`, `type`, `total_players`) VALUES (DEFAULT, 'Easygoing Tournament', '2018-02-01', 4, 1, 1, 3, DEFAULT, NULL);
-INSERT INTO `tournament` (`id`, `name`, `start_date`, `rounds_won`, `rounds_lost`, `rounds_drawn`, `place`, `type`, `total_players`) VALUES (DEFAULT, 'Challanging Tournament', '2018-03-01', 2, 6, 1, 15, DEFAULT, NULL);
-INSERT INTO `tournament` (`id`, `name`, `start_date`, `rounds_won`, `rounds_lost`, `rounds_drawn`, `place`, `type`, `total_players`) VALUES (DEFAULT, 'The Big Grand Prix', '2018-04-01', 10, 3, 1, 2, DEFAULT, NULL);
-INSERT INTO `tournament` (`id`, `name`, `start_date`, `rounds_won`, `rounds_lost`, `rounds_drawn`, `place`, `type`, `total_players`) VALUES (DEFAULT, 'Regional Finals', '2018-05-01', 5, 6, 2, 10, DEFAULT, NULL);
+INSERT INTO `tournament` (`id`, `name`, `start_date`, `rounds_won`, `rounds_lost`, `rounds_drawn`, `place`, `type`, `total_players`, `description`) VALUES (DEFAULT, 'Weekend Tournament', '2018-01-01', 3, 3, 0, 5, DEFAULT, NULL, NULL);
+INSERT INTO `tournament` (`id`, `name`, `start_date`, `rounds_won`, `rounds_lost`, `rounds_drawn`, `place`, `type`, `total_players`, `description`) VALUES (DEFAULT, 'Easygoing Tournament', '2018-02-01', 4, 1, 1, 3, DEFAULT, NULL, NULL);
+INSERT INTO `tournament` (`id`, `name`, `start_date`, `rounds_won`, `rounds_lost`, `rounds_drawn`, `place`, `type`, `total_players`, `description`) VALUES (DEFAULT, 'Challanging Tournament', '2018-03-01', 2, 6, 1, 15, DEFAULT, NULL, NULL);
+INSERT INTO `tournament` (`id`, `name`, `start_date`, `rounds_won`, `rounds_lost`, `rounds_drawn`, `place`, `type`, `total_players`, `description`) VALUES (DEFAULT, 'The Big Grand Prix', '2018-04-01', 10, 3, 1, 2, DEFAULT, NULL, NULL);
+INSERT INTO `tournament` (`id`, `name`, `start_date`, `rounds_won`, `rounds_lost`, `rounds_drawn`, `place`, `type`, `total_players`, `description`) VALUES (DEFAULT, 'Regional Finals', '2018-05-01', 5, 6, 2, 10, DEFAULT, NULL, NULL);
 
 COMMIT;
