@@ -71,4 +71,29 @@ public class TournamentController {
 	public Tournament getTournamentById(@PathVariable int id){
 		return tournamentService.getTournamentById(id); 
 	}
+	
+	@RequestMapping(path="average/wins", method=RequestMethod.GET)
+	public Double getAverageWins() {
+		return tournamentService.getAverageWins();
+	}
+	
+	@RequestMapping(path="average/losses", method=RequestMethod.GET)
+	public Double getAverageLosses() {
+		return tournamentService.getAverageLosses();
+	}
+	
+	@RequestMapping(path="all/wins", method=RequestMethod.GET)
+	public Integer getWins() {
+		return tournamentService.getTotalWins();
+	}
+	
+	@RequestMapping(path="all/losses", method=RequestMethod.GET)
+	public Integer getLosses() {
+		return tournamentService.getTotalLosses();
+	}
+	
+	@RequestMapping(path="all/draws", method=RequestMethod.GET)
+	public Integer getDraws() {
+		return tournamentService.getTotalDraws();
+	}
 }

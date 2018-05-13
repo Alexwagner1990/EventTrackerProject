@@ -1,5 +1,6 @@
 package com.skilldistillery.tournament.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -87,6 +88,70 @@ public class TournamentServiceImpl implements TournamentService {
 			return ifFound.get();
 		}
 		return null;
+	}
+
+	@Override
+	public List<Tournament> findTournamentInTimePeriod(Date state, Date end) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Integer getTotalWins() {
+		List<Tournament> allTourneys = tournamentRepo.findAll();
+		Integer wins = 0;
+		for (Tournament tournament : allTourneys) {
+			wins += tournament.getRoundsWon();
+		}
+		return wins;
+	}
+
+	@Override
+	public Integer getTotalLosses() {
+		List<Tournament> allTourneys = tournamentRepo.findAll();
+		Integer losses = 0;
+		for (Tournament tournament : allTourneys) {
+			losses += tournament.getRoundsLost();
+		}
+		return losses;
+	}
+
+	@Override
+	public Integer getTotalDraws() {
+		List<Tournament> allTourneys = tournamentRepo.findAll();
+		Integer draws = 0;
+		for (Tournament tournament : allTourneys) {
+			draws += tournament.getRoundsDrawn();
+		}
+		return draws;
+	}
+
+	@Override
+	public Double getAverageWins() {
+		List<Tournament> allTourneys = tournamentRepo.findAll();
+		Integer wins = 0;
+		Double average = 0.00;
+		for (Tournament tournament : allTourneys) {
+			wins += tournament.getRoundsWon();
+		}		
+		if(allTourneys.size()>0) {
+			average = (double)Math.round((100*wins/allTourneys.size()))/100;
+		}
+		return average;
+	}
+
+	@Override
+	public Double getAverageLosses() {
+		List<Tournament> allTourneys = tournamentRepo.findAll();
+		Integer losses = 0;
+		Double average = 0.00;
+		for (Tournament tournament : allTourneys) {
+			losses += tournament.getRoundsLost();
+		}		
+		if(allTourneys.size()>0) {
+			average = (double)Math.round((100*losses/allTourneys.size()))/100;
+		}
+		return average;
 	}
 	
 	

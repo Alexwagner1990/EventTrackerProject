@@ -12,6 +12,7 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'war'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
@@ -23,6 +24,22 @@ repositories {
 	mavenCentral()
 }
 
+war {
+enabled = true
+  archiveName = "EventTracker.war"
+  destinationDir = file("~/SD/Java/EventTrackerProject") 
+}
+
+ext {
+  springVersion = "4.3.14.RELEASE"
+}
+
+jar {
+	enabled = true
+}
+bootJar {
+	classifier = 'boot'
+}
 
 dependencies {
 	compile project(':TournamentJPA')
@@ -30,4 +47,9 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	runtime('mysql:mysql-connector-java')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+	//LOOK OUT BELOW
+	compile ('org.springframework.boot:spring-boot-starter-web')
+	providedRuntime ('org.springframework.boot:spring-boot-starter-tomcat')
+//	providedCompile ('javax.servlet:servlet-api:2.5') 
+
 }

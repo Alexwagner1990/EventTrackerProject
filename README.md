@@ -2,7 +2,7 @@
 
 ### How to Use This Project
 
-This project can be run by running the TournamentREST project as a Spring Boot app. Once the app runs successfully, the data can be accessed via Postman from localhost8080/api/tournament/{controller route here}. The app uses MySQL with some test data - this can be accessed using the MySQL credentials tournamentplayer (user) and tournament(password). The app can also be run on the AWS server, with the address http://13.58.147.59:8080 (TBD)
+This project can be run by running the TournamentREST project as a Spring Boot app. Once the app runs successfully, the data can be accessed via Postman from localhost8080/api/tournament/{controller route here}. The app uses MySQL with some test data - this can be accessed using the MySQL credentials tournamentplayer (user) and tournament(password). The app can also be run on the AWS server, with the address http://13.58.147.59:8080/EventTracker
 
 The user can find a tournament by id with the path /api/tournament/{id of tournament} (GET request) - On the front end this will be used when selecting form the search by keyword results.
 
@@ -13,6 +13,16 @@ The user can create a tournament with the path /api/tournament/new, with a body 
 The user can update a tournament with the path /api/tournament/update/{id of tournament to update}, with a body of the JSON you'd like to update (PATCH request)
 
 The user can delete a tournament with the path /api/tournament/delete/{id of tournament to delete} (DELETE request)
+
+The user can find the total number of rounds he or she has won across all tournaments with the path /api/tournament/all/wins (GET request)
+
+The user can find the total number of rounds he or she has lost across all tournaments with the path /api/tournament/all/losses (GET request)
+
+The user can find the total number of rounds he or she has drawn across all tournaments with the path /api/tournament/all/draws (GET request)
+
+The user can find the average number of rounds he or she wins per tournament with the path /api/tournament/average/wins (GET request)
+
+The user can find the average number of rounds he or she loses per tournament with the path /api/tournament/average/losses (GET request)
 
 ### Project Description
 
