@@ -48,8 +48,9 @@ dependencies {
 	runtime('mysql:mysql-connector-java')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	//LOOK OUT BELOW
-	compile ('org.springframework.boot:spring-boot-starter-web')
 	providedRuntime ('org.springframework.boot:spring-boot-starter-tomcat')
 //	providedCompile ('javax.servlet:servlet-api:2.5') 
+
+	
 
 }
