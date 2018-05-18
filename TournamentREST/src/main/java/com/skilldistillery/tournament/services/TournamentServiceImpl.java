@@ -1,6 +1,6 @@
 package com.skilldistillery.tournament.services;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +39,7 @@ public class TournamentServiceImpl implements TournamentService {
 
 	@Override
 	public Tournament editTournament(Tournament tournament, int id) {
-		Tournament managedTournament = getTournamentById(id);//tournamentRepo.findById(tournament.getId()).get();
+		Tournament managedTournament = getTournamentById(tournament.getId());//tournamentRepo.findById(tournament.getId()).get();
 		if(managedTournament.getId() != id) {
 			return null;
 		}
@@ -48,9 +48,9 @@ public class TournamentServiceImpl implements TournamentService {
 			managedTournament.setName(tournament.getName());
 		}
 		// PUT THIS BACK IN WHEN YOU FIGURE OUT JACKSON DEPENDANCY
-//		if(tournament.getStartDate() != null) {
-//			managedTournament.setStartDate(tournament.getStartDate());
-//		}
+		if(tournament.getStartDate() != null) {
+			managedTournament.setStartDate(tournament.getStartDate());
+		}
 		if(tournament.getRoundsWon() != null) {
 			managedTournament.setRoundsWon(tournament.getRoundsWon());
 		}

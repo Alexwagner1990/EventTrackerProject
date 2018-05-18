@@ -1,6 +1,6 @@
 package com.skilldistillery.tournament.services;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import com.skilldistillery.tournament.entities.Tournament;

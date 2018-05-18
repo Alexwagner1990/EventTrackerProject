@@ -1,6 +1,6 @@
 package com.skilldistillery.tournament.entities;
 
-import java.util.Date;
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,8 +19,8 @@ public class Tournament {
 	private String name;
 //	PUT THIS BACK IN WHEN YOU FIGURE OUT JACKSON DEPENDANCY
 //	@Temporal(TemporalType.DATE)
-//	@Column(name="start_date")
-//	private Date startDate;
+	@Column(name="start_date")
+	private Date startDate;
 	@Column(name="rounds_won")
 	private Integer roundsWon;
 	@Column(name="rounds_lost")
@@ -52,13 +52,13 @@ public class Tournament {
 	}
 
 // PUT THIS BACK IN WHEN YOU FIGURE OUT JACKSON DEPENDANCY
-//	public Date getStartDate() {
-//		return startDate;
-//	}
-//
-//	public void setStartDate(Date startDate) {
-//		this.startDate = startDate;
-//	}
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
 
 	public Integer getRoundsWon() {
 		return roundsWon;
