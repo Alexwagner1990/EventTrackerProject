@@ -6,12 +6,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/myStylesheet.css">
+  <script src="js/tournament.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <title>Tournament Tracker</title>
 </head>
 <body>
+<h1>TOURNAMENT TRACKER</h1>
+<div>
+<form name="addTournament">
+    Name:<input type="text" name="title">
+    Type: <input type="text" name="type">
+    Date:<input type="date" name="startDate"><br>
+    Rounds Won:<input type="number" name="roundsWon">
+    Rounds Lost:<input type="number" name="roundsLost">
+    Rounds Drawn:<input type="number" name="roundsDrawn"><br>
+    Place:<input type="number" name="place"><br>
+    Total Players:<input type="number" name="totalPlayers"><br>
+    <button id="addTournamentButton" name="addTournamentButton">Add Tournament</button>
+</form>
 
+</div>
+<div><button id="index">Show All Tournaments</button></div>
+<div id="updateModal" class="modal">
+<div class="modal-content">
+<span id="closeButton" class="close">&times;</span>
+<form name="updateTournament">
+    Name:<input type="text" name="title">
+    Type: <input type="text" name="type">
+    Date:<input type="date" name="startDate"><br>
+    Rounds Won:<input type="number" name="roundsWon">
+    Rounds Lost:<input type="number" name="roundsLost">
+    Rounds Drawn:<input type="number" name="roundsDrawn"><br>
+    Place:<input type="number" name="place"><br>
+    Total Players:<input type="number" name="totalPlayers"><br>
+    <button id="updateTournamentButton" name="updateTournamentButton">Update Tournament</button>
+</form>
+</div>
+</div>
+<div id="allTournaments" align=center></div>
 
 
 
