@@ -39,7 +39,7 @@ public class TournamentServiceImpl implements TournamentService {
 
 	@Override
 	public Tournament editTournament(Tournament tournament, int id) {
-		Tournament managedTournament = getTournamentById(tournament.getId());//tournamentRepo.findById(tournament.getId()).get();
+		Tournament managedTournament = getTournamentById(id);//tournamentRepo.findById(tournament.getId()).get();		
 		if(managedTournament.getId() != id) {
 			return null;
 		}
@@ -47,7 +47,6 @@ public class TournamentServiceImpl implements TournamentService {
 		if(tournament.getName() != null && !tournament.getName().equals("")) {
 			managedTournament.setName(tournament.getName());
 		}
-		// PUT THIS BACK IN WHEN YOU FIGURE OUT JACKSON DEPENDANCY
 		if(tournament.getStartDate() != null) {
 			managedTournament.setStartDate(tournament.getStartDate());
 		}

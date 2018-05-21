@@ -12,34 +12,44 @@
   <title>Tournament Tracker</title>
 </head>
 <body>
-<h1>TOURNAMENT TRACKER</h1>
-<div>
+<h1 align="center">TOURNAMENT TRACKER</h1>
+<div id="addModal" class="modal">
+<div class="modal-content">
+<span id="closeButtonAdd" class="close">&times;</span>
+<h3 align="center" style="color:black">Add Tournament</h3>
 <form name="addTournament">
-    Name:<input type="text" name="title">
-    Type: <input type="text" name="type">
+    Name:<input type="text" name="title" required><br>
+    Type: <input type="text" name="type"><br>
     Date:<input type="date" name="startDate"><br>
-    Rounds Won:<input type="number" name="roundsWon">
-    Rounds Lost:<input type="number" name="roundsLost">
+    Rounds Won:<input type="number" name="roundsWon"><br>
+    Rounds Lost:<input type="number" name="roundsLost"><br>
     Rounds Drawn:<input type="number" name="roundsDrawn"><br>
     Place:<input type="number" name="place"><br>
     Total Players:<input type="number" name="totalPlayers"><br>
+    Description:<input type="text" name="description"><br>
     <button id="addTournamentButton" name="addTournamentButton">Add Tournament</button>
 </form>
-
 </div>
-<div><button id="index">Show All Tournaments</button></div>
+</div>
+
+<div><button id="index">Show All Tournaments</button><button id="add">Add Tournament</button>
+<button id="search">Find Tournament(s)</button><br><button id="totalWins">Get Your Total Wins</button><button id="totalLoses">Get Your Total Losses</button><button id="totalDraws">Get Your Total Draws</button><br>
+<button id="averageWins">Get Your Average Wins</button><button id="averageLosses">Get Your Average Losses</button></div>
 <div id="updateModal" class="modal">
 <div class="modal-content">
 <span id="closeButton" class="close">&times;</span>
+<h3 align="center" style="color:black">Update Tournament</h3>
 <form name="updateTournament">
-    Name:<input type="text" name="title">
-    Type: <input type="text" name="type">
+	<input type="hidden" name="id" value=""><br>
+    Name:<input type="text" name="title" required><br>
+    Type: <input type="text" name="type"><br>
     Date:<input type="date" name="startDate"><br>
-    Rounds Won:<input type="number" name="roundsWon">
-    Rounds Lost:<input type="number" name="roundsLost">
+    Rounds Won:<input type="number" name="roundsWon"><br>
+    Rounds Lost:<input type="number" name="roundsLost"><br>
     Rounds Drawn:<input type="number" name="roundsDrawn"><br>
     Place:<input type="number" name="place"><br>
     Total Players:<input type="number" name="totalPlayers"><br>
+    Description:<input type="text" name="description"><br>
     <button id="updateTournamentButton" name="updateTournamentButton">Update Tournament</button>
 </form>
 </div>

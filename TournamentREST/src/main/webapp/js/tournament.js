@@ -4,16 +4,51 @@ window.addEventListener('load', function(e){
 
 
 function run(){
-    console.log("Ran it!");
-    // displayAllTournaments();
     var button = document.getElementById('index');
     button.addEventListener('click', function(e){
         displayAllTournaments();
     });
+    var addButton = document.getElementById('add');
+    addButton.addEventListener('click', function(e){
+        e.preventDefault();
+        displayAddModal();
+    });
     document.addTournament.addTournamentButton.addEventListener('click', function(ev){
-        console.log(ev);
-        
         addTournament(ev);
+    });
+    document.updateTournament.updateTournamentButton.addEventListener('click', function(e){
+        e.preventDefault();
+        addListenerToUpdate();
+    });
+    var searchButton = document.getElementById('search');
+    searchButton.addEventListener('click', function(searchEvent){
+        searchEvent.preventDefault();
+        searchForTournaments();
+    });
+    var totalWinsButton = document.getElementById('totalWins');
+    totalWinsButton.addEventListener('click', function(searchEvent){
+        searchEvent.preventDefault();
+        totalWins();
+    });
+    var totalLosesButton = document.getElementById('totalLoses');
+    totalLosesButton.addEventListener('click', function(searchEvent){
+        searchEvent.preventDefault();
+        totalLoses();
+    });
+    var totalDrawsButton = document.getElementById('totalDraws');
+    totalDrawsButton.addEventListener('click', function(searchEvent){
+        searchEvent.preventDefault();
+        totalDraws();
+    });
+    var averageWinsButton = document.getElementById('averageWins');
+    averageWinsButton.addEventListener('click', function(searchEvent){
+        searchEvent.preventDefault();
+        averageWins();
+    });
+    var averageLossesButton = document.getElementById('averageLosses');
+    averageLossesButton.addEventListener('click', function(searchEvent){
+        searchEvent.preventDefault();
+        averageLosses();
     });
 }
 
@@ -69,6 +104,7 @@ function addTournament(ev){
     var roundsDrawn = button.parentElement.roundsDrawn.value;
     var place = button.parentElement.place.value;
     var totalPlayers = button.parentElement.totalPlayers.value;
+    var description = button.parentElement.description.value;
     var tournament = {
         name: title,
         type: type,
@@ -77,7 +113,8 @@ function addTournament(ev){
         roundsLost: roundsLost,
         roundsDrawn: roundsDrawn,
         place: place,
-        totalPlayers: totalPlayers
+        totalPlayers: totalPlayers,
+        description: description,
     }
 
     var xhr = new XMLHttpRequest();
@@ -88,10 +125,12 @@ function addTournament(ev){
                 var dataBack = JSON.parse(xhr.responseText);
                 console.log("SUCCESS! " + dataBack);
                 displayAllTournaments();
+                let modal = document.getElementById('addModal');
+                modal.style.display = "none";
             }
             else{
                 console.error("FAILED IDIOT");
-                console.error(xhr.status + ": " + xhr.responseText);
+                console.error("" + xhr.status + ": " + xhr.responseText);
               }
         }
     }
@@ -173,27 +212,12 @@ function deleteTournament(tourneyId){
     xhr.send()
 }
 
-function displayUpdateModal(id){
-    var updateModal = document.getElementById('updateModal');
-    updateModal.style.display = "block";
-
-    var closeButton = document.getElementById('closeButton');    
-    closeButton.onclick = function(){
-        updateModal.style.display = "none";
-    }
-
-
-    window.onclick = function(event) {
-        if (event.target == updateModal) {
-            modal.style.display = "none";
-        }
-    }
-
+function addListenerToUpdate(){
     var button = document.getElementById("updateTournamentButton");
-
-    button.addEventListener('click', function(e){
-        e.preventDefault();
-        var name = button.parentElement[0].value;    
+        var id = button.parentElement.id.value;
+        id = parseInt(id);
+        console.log(id);
+        var name = button.parentElement.title.value;    
         var type = button.parentElement.type.value;
         var date = button.parentElement.startDate.value;
         var roundsWon = button.parentElement.roundsWon.value;
@@ -201,6 +225,7 @@ function displayUpdateModal(id){
         var roundsDrawn = button.parentElement.roundsDrawn.value;
         var place = button.parentElement.place.value;
         var totalPlayers = button.parentElement.totalPlayers.value;
+        var description = button.parentElement.description.value;
         var updatedTournament = {
             name: name,
             type: type,
@@ -209,7 +234,8 @@ function displayUpdateModal(id){
             roundsLost: roundsLost,
             roundsDrawn: roundsDrawn,
             place: place,
-            totalPlayers: totalPlayers
+            totalPlayers: totalPlayers,
+            description: description
         }
         var xhr = new XMLHttpRequest();
         xhr.open('PATCH', `api/tournament/update/${id}`, true);
@@ -218,10 +244,11 @@ function displayUpdateModal(id){
             if(xhr.readyState === 4){
                 if(xhr.status === 200){
                     var updatedTournament = JSON.parse(this.responseText);
-                    displayOneTournament(`${id}`);
+                    displayOneTournament(id);
+                    let modal = document.getElementById('updateModal');
+                    modal.style.display = "none";
                 }
                 else{
-                    console.log(updateJSON);
                     
                     console.error(xhr.status + ": " + xhr.responseText);
                     console.error("NUH UH DUMB DUMB");
@@ -230,65 +257,218 @@ function displayUpdateModal(id){
         }
         updateJSON = JSON.stringify(updatedTournament);
         xhr.send(updateJSON);
-    })
-
+    
 }
 
 
+function displayUpdateModal(id){
+    if(Array.isArray(id)){
+        id=(id[id.length - 1]);
+    }
+    var form = document.getElementsByName("updateTournament")[0];
+    form.firstElementChild.value = id;
 
 
+    var updateModal = document.getElementById('updateModal');
+    updateModal.style.display = "block";
 
+    var closeButton = document.getElementById('closeButton');    
+    closeButton.onclick = function(){
+        updateModal.style.display = "none";
+    }
 
+    window.onclick = function(event) {
+        if (event.target == updateModal) {
+            updateModal.style.display = "none";
+        }
+    }
+}
 
+function displayAddModal(){
+    var addModal = document.getElementById('addModal');
+    addModal.style.display = "block";
 
+    var closeButton = document.getElementById('closeButtonAdd');
+    closeButton.onclick = function(){
+        addModal.style.display = "none";
+    }
 
+    window.onclick = function(event) {
+        if (event.target == updateModal) {
+            updateModal.style.display = "none";
+        }
+    }
 
-// var updateForm = document.createElement('form');
-// for (let key in dataBack) {
-//     if(key !== 'id'){                        
-//         var tableRowUpdate = document.createElement('tr');
-//         var labelSquareUpdate = document.createElement('td');
-//         var infoSquareUpdate = document.createElement('td');
-//         var inputField = document.createElement('input');
-//             if(key == 'name' || key == 'type' || key == 'description'){
-//                 inputField.setAttribute('type', 'text');
-//             }
-//             else if(key == 'startDate'){
-//                 inputField.setAttribute('type', 'date');
-//             }
-//             else{
-//                 inputField.setAttribute('type', 'number');
-//             }
-//             if(key === 'name'){
-//                 inputField.setAttribute('name', 'name');
-//             }
-//             if(key === 'startDate'){
-//                 inputField.setAttribute('name', 'startDate');
-//             }
-//             if(key === 'name'){
-//                 inputField.setAttribute('name', 'name');
-//             }
-//             if(key === 'name'){
-//                 inputField.setAttribute('name', 'name');
-//             }
-//             if(key === 'name'){
-//                 inputField.setAttribute('name', 'name');
-//             }
-//             if(key === 'name'){
-//                 inputField.setAttribute('name', 'name');
-//             }
-//             if(key === 'name'){
-//                 inputField.setAttribute('name', 'name');
-//             }
-//             if(key === 'name'){
-//                 inputField.setAttribute('name', 'name');
-//             }
-//             if(key === 'name'){
-//                 inputField.setAttribute('name', 'name');
-//             }
-        
-//         tableRow.appendChild(labelSquare);
-//         tableRow.appendChild(infoSquare);
-//         table.appendChild(tableRow);
-//     }    
-// }
+}
+
+function searchForTournaments(){
+    var searchTerm = prompt("Enter a name or description:");
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', `api/tournament/search/${searchTerm}`, true);
+    xhr.onreadystatechange = function(){
+        if(this.readyState === 4){
+            if(this.status === 200){
+                var results = JSON.parse(xhr.responseText);
+                var allTournaments = document.getElementById('allTournaments');
+                allTournaments.textContent = "";
+                if(Array.isArray(results) && results != null &&results.length > 0 ){
+                    var table = document.createElement('table');
+                    var tableHead = document.createElement('thead');
+                    var tableHeadRow = document.createElement('tr');
+                    var tableHeadData = document.createElement('th');
+                    var tableHeadData2 = document.createElement('th');
+                    tableHeadData.textContent = "Name";
+                    tableHeadData2.textContent = "Description";
+                    tableHeadRow.appendChild(tableHeadData);
+                    tableHeadRow.appendChild(tableHeadData2);
+                    table.appendChild(tableHeadRow);
+
+                    results.forEach(function(tourResult, number){                        
+                        var resultRow = document.createElement('tr');
+                        var idCol = document.createElement('td');
+                        var nameCol = document.createElement('td');
+                        var descCol = document.createElement('td');
+                        idCol.textContent = tourResult.id;
+                        nameCol.textContent = tourResult.name;
+                        if(tourResult.description != null){
+                            descCol.textContent = tourResult.description;
+                        }
+                        else{
+                            descCol.textContent = "N/A";
+                        }
+                        idCol.setAttribute("style", "display: none");
+                        resultRow.appendChild(idCol);
+                        resultRow.appendChild(nameCol);
+                        resultRow.appendChild(descCol);
+                        resultRow.addEventListener('click', function(e){
+                            let id = e.target.parentElement.firstElementChild.textContent;
+                            id = parseInt(id);
+                            displayOneTournament(id);
+                        });
+                        table.appendChild(resultRow);
+                    });
+                    allTournaments.appendChild(table);
+                }
+                else{
+                    var noResults = document.createElement('h3');
+                    noResults.textContent = "No Tournaments Found, Try Again!"
+                    allTournaments.appendChild(noResults);
+                }
+            }
+            else{
+                console.error("" + xhr.status + ": " + xhr.responseText);
+            }
+        }
+    }
+    xhr.send();
+}
+
+function totalWins(){
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'api/tournament/all/wins', true)
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState === 4){
+            if(xhr.status === 200){
+                var display = document.getElementById('allTournaments');
+                display.textContent = "";
+                var result = JSON.parse(this.responseText);
+                result = parseInt(result);
+                var resultDisplay = document.createElement('h3');
+                resultDisplay.textContent = `Number of Wins: ${result}` 
+                display.appendChild(resultDisplay); 
+            }
+            else{
+                console.error("" + xhr.status + ": " + xhr.responseText);
+            }
+        }
+    }
+    xhr.send();
+}
+
+function totalLoses(){
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'api/tournament/all/losses', true)
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState === 4){
+            if(xhr.status === 200){
+                var display = document.getElementById('allTournaments');
+                display.textContent = "";
+                var result = JSON.parse(this.responseText);
+                result = parseInt(result);
+                var resultDisplay = document.createElement('h3');
+                resultDisplay.textContent = `Number of Losses: ${result}`;
+                display.appendChild(resultDisplay); 
+            }
+            else{
+                console.error("" + xhr.status + ": " + xhr.responseText);
+            }
+        }
+    }
+    xhr.send();
+}
+
+function totalDraws(){
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'api/tournament/all/draws', true)
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState === 4){
+            if(xhr.status === 200){
+                var display = document.getElementById('allTournaments');
+                display.textContent = "";
+                var result = JSON.parse(this.responseText);
+                result = parseInt(result);
+                var resultDisplay = document.createElement('h3');
+                resultDisplay.textContent = `Number of Draws: ${result}`;
+                display.appendChild(resultDisplay);  
+            }
+            else{
+                console.error("" + xhr.status + ": " + xhr.responseText);
+            }
+        }
+    }
+    xhr.send();
+}
+
+function averageWins(){
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'api/tournament/average/wins', true)
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState === 4){
+            if(xhr.status === 200){
+                var display = document.getElementById('allTournaments');
+                display.textContent = "";
+                var result = JSON.parse(this.responseText);
+                result = parseFloat(result);
+                var resultDisplay = document.createElement('h3');
+                resultDisplay.textContent = `Average Number of Wins Per Tournament: ${result}`;
+                display.appendChild(resultDisplay);  
+            }
+            else{
+                console.error("" + xhr.status + ": " + xhr.responseText);
+            }
+        }
+    }
+    xhr.send();
+}
+
+function averageLosses(){
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'api/tournament/average/losses', true)
+    xhr.onreadystatechange = function(){
+        if(xhr.readyState === 4){
+            if(xhr.status === 200){
+                var display = document.getElementById('allTournaments');
+                display.textContent = "";
+                var result = JSON.parse(this.responseText);
+                result = parseFloat(result);
+                var resultDisplay = document.createElement('h3');
+                resultDisplay.textContent = `Average Number of Losses Per Tournament: ${result}`;
+                display.appendChild(resultDisplay);  
+            }
+            else{
+                console.error("" + xhr.status + ": " + xhr.responseText);
+            }
+        }
+    }
+    xhr.send();
+}
