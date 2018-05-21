@@ -44,6 +44,8 @@ Going into this project, I thought I had a better handle on event listeners - I 
 
 Working with javascript, I can see the potential for how powerful javascript can be, both for better and for worse - being able to set anything into a variable makes the language more versatile in some ways than Java, but in other ways that variability was a bit paralyzing. When a compiler isn't catching your mistakes, bug tracking can be much harder.
 
+I'm not sure if it was this project in particular or Javascript more generally, but Javascript has seemed much more verbose than Java so far, especially when writing lines to manipulate the DOM. Especially since JavaScript is pretty lax in terms of organization, going forward I'm really going to have to organize Javascript code effectively and break it down into manageable chunks or I can definitely see how I could potentially drown in a sea of Javascript (with no compiler to throw me a lifesaver).
+
 THE BELOW IS DEPRECIATED:
 I'm starting to get a bit more comfortable with using MySQL workbench. I spent too long on an issue where the forward engineer did not generate the CREATE SCHEMA statements, but it ended up being an easy fix - I was missing the GENERATE USE STATEMENTS checkbox. The computer has to do what I tell it to do, but only if I tell it correctly.
 
