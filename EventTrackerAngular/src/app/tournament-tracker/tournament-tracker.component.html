@@ -1,0 +1,71 @@
+<h1>Tournament Tracker</h1>
+<div id="addModal" class="modal">
+  <div class="modal-content">
+  <span id="closeButtonAdd" class="close">&times;</span>
+  <h3 align="center" style="color:black">Add Tournament</h3>
+  <form name="addTournament" #newTournament= "ngForm">
+      Name:<input type="text" name="title" required ngModel><br>
+      Type: <input type="text" name="type" ngModel><br>
+      Date:<input type="date" name="startDate" ngModel><br>
+      Rounds Won:<input type="number" name="roundsWon" ngModel><br>
+      Rounds Lost:<input type="number" name="roundsLost" ngModel><br>
+      Rounds Drawn:<input type="number" name="roundsDrawn" ngModel><br>
+      Place:<input type="number" name="place" ngModel><br>
+      Total Players:<input type="number" name="totalPlayers" ngModel><br>
+      Description:<input type="text" name="description" NgModel><br>
+      <button id="addTournamentButton" name="addTournamentButton" (click)="addTournament()">Add Tournament</button>
+  </form>
+  </div>
+  </div>
+
+  <div><button id="add">Add Tournament</button>
+  <button id="search">Find Tournament(s)</button><br><button id="totalWins">Get Your Total Wins</button><button id="totalLoses">Get Your Total Losses</button><button id="totalDraws">Get Your Total Draws</button><br>
+  <button id="averageWins">Get Your Average Wins</button><button id="averageLosses">Get Your Average Losses</button></div>
+
+  <div id="updateModal" class="modal">
+  <div class="modal-content">
+  <span id="closeButton" class="close">&times;</span>
+  <h3 align="center" style="color:black">Update Tournament</h3>
+  <form name="updateTournament" #updatedTournament= "ngForm">
+    <input type="hidden" name="id" value="" NgModel><br>
+      Name:<input type="text" name="title" required NgModel><br>
+      Type: <input type="text" name="type" NgModel><br>
+      Date:<input type="date" name="startDate" NgModel><br>
+      Rounds Won:<input type="number" name="roundsWon" NgModel><br>
+      Rounds Lost:<input type="number" name="roundsLost" NgModel><br>
+      Rounds Drawn:<input type="number" name="roundsDrawn" NgModel><br>
+      Place:<input type="number" name="place" NgModel><br>
+      Total Players:<input type="number" name="totalPlayers" NgModel><br>
+      Description:<input type="text" name="description" NgModel><br>
+      <button id="updateTournamentButton" name="updateTournamentButton" (click)="updateTournament(updatedTournament)">Update Tournament</button>
+  </form>
+  </div>
+  </div>
+  <!--Display All Tournaments-->
+  <div *ngIf="listOfTournaments.length > 0 || listOfTournaments != null">
+     <table>
+       <thead>
+         <tr><td>Tournament Name</td><td>Tournament Type</td><td>Tournament Start Date</td></tr>
+       </thead>
+       <tbody>
+         <tr *ngFor="let t of listOfTournaments" (click)="showTournament(t)">
+           <td>{{t.name}}</td><td>{{t.type}}</td><td>{{t.startDate}}</td>
+         </tr>
+       </tbody>
+     </table>
+  </div>
+  <!--DISPLAY SINGLE TOURNAMENT-->
+  <div *ngIf="oneTournament != null">
+      <h3>Tournament Name: {{oneTournament.name}}</h3>
+      <h3>Tournament Type: {{oneTournament.type}}</h3>
+      <h3>Tournament Start Date: {{oneTournament.startDate}}</h3>
+      <h3>Description:</h3><p>{{oneTournament.description}}</p>
+      <hr>
+      <h3>Wins: {{oneTournament.wins}}</h3>
+      <h3>Losses: {{oneTournament.losses}}</h3>
+      <h3>Draws: {{oneTournament.draws}}</h3>
+      <h3>Place: {{oneTournament.place}}</h3>
+      <h3>Total Players: {{oneTournament.totalPlayers}}</h3>
+      <button class="btn-lrg" (click)="">Update This Tournament</button>
+      <button class="btn-lrg" (click)="oneTournament = null">Back</button>
+  </div>
