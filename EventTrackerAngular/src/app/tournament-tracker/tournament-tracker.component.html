@@ -1,7 +1,8 @@
 <h1>Tournament Tracker</h1>
+<!--Add Tournament Modal-->
 <div id="addModal" class="modal">
   <div class="modal-content">
-  <span id="closeButtonAdd" class="close">&times;</span>
+  <span id="closeButtonAdd" class="close" (click)="closeAddModal()">&times;</span>
   <h3 align="center" style="color:black">Add Tournament</h3>
   <form name="addTournament" #newTournament= "ngForm">
       Name:<input type="text" name="title" required ngModel><br>
@@ -13,22 +14,18 @@
       Place:<input type="number" name="place" ngModel><br>
       Total Players:<input type="number" name="totalPlayers" ngModel><br>
       Description:<input type="text" name="description" NgModel><br>
-      <button id="addTournamentButton" name="addTournamentButton" (click)="addTournament()">Add Tournament</button>
+      <button id="addTournamentButton" name="addTournamentButton" (click)="addTournament(newTournament)">Add Tournament</button>
   </form>
   </div>
   </div>
-
-  <div><button id="add">Add Tournament</button>
-  <button id="search">Find Tournament(s)</button><br><button id="totalWins">Get Your Total Wins</button><button id="totalLoses">Get Your Total Losses</button><button id="totalDraws">Get Your Total Draws</button><br>
-  <button id="averageWins">Get Your Average Wins</button><button id="averageLosses">Get Your Average Losses</button></div>
-
+  <!--Update Tournament Modal-->
   <div id="updateModal" class="modal">
   <div class="modal-content">
-  <span id="closeButton" class="close">&times;</span>
+  <span id="closeButton" class="close" (click)="closeUpdateModal()">&times;</span>
   <h3 align="center" style="color:black">Update Tournament</h3>
   <form name="updateTournament" #updatedTournament= "ngForm">
     <input type="hidden" name="id" value="" NgModel><br>
-      Name:<input type="text" name="title" required NgModel><br>
+      Name:<input type="text" name="name" required NgModel><br>
       Type: <input type="text" name="type" NgModel><br>
       Date:<input type="date" name="startDate" NgModel><br>
       Rounds Won:<input type="number" name="roundsWon" NgModel><br>
@@ -41,8 +38,17 @@
   </form>
   </div>
   </div>
+<!--Buttons and Stats badges-->
+  <div><button id="add" (click)="showAddModal()">Add Tournament</button>
+  <button id="search">Find Tournament(s)</button><br>
+  Total Wins: <span class="badge badge-info">{{totalWins()}}</span><br>
+  Total Losses: <span class="badge badge-info">{{totalLosses()}}</span><br>
+  Total Draws: <span class="badge badge-info">{{totalDraws()}}</span><br>
+  Average Wins: <span class="badge badge-info">{{averageWins()}}</span><br>
+  Average Losses: <span class="badge badge-info">{{averageLosses()}}</span><br>
+</div>
   <!--Display All Tournaments-->
-  <div *ngIf="listOfTournaments.length > 0 || listOfTournaments != null">
+  <div *ngIf="(listOfTournaments != null || listOfTournaments.length > 0) && !oneTournament">
      <table>
        <thead>
          <tr><td>Tournament Name</td><td>Tournament Type</td><td>Tournament Start Date</td></tr>
@@ -66,6 +72,26 @@
       <h3>Draws: {{oneTournament.draws}}</h3>
       <h3>Place: {{oneTournament.place}}</h3>
       <h3>Total Players: {{oneTournament.totalPlayers}}</h3>
-      <button class="btn-lrg" (click)="">Update This Tournament</button>
+      <button class="btn-lrg" (click)="showUpdateModal(oneTournament.id)">Update This Tournament</button>
       <button class="btn-lrg" (click)="oneTournament = null">Back</button>
+  </div>
+  <!--Display Search Results of Tournaments-->
+  <div *ngIf="!oneTournament && searchedTournaments != null && searchedTournaments.length > 0">
+    <div *ngIf="(listOfTournaments != null || listOfTournaments.length > 0) && !oneTournament">
+      <table>
+        <thead>
+          <tr><td>Tournament Name</td><td>Tournament Type</td><td>Tournament Start Date</td></tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let t of listOfTournaments" (click)="showTournament(t)">
+            <td>{{t.name}}</td><td>{{t.type}}</td><td>{{t.startDate}}</td>
+          </tr>
+        </tbody>
+      </table>
+   </div>
+  </div>
+  <!--If no search results found-->
+  <div>
+    <h1>No results found, try another search!</h1>
+    <button class="btn-lrg" (click)="allTournaments()">Back to All Tournaments</button>
   </div>
