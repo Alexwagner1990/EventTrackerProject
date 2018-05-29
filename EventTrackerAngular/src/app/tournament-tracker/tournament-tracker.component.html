@@ -49,9 +49,9 @@
         Name:<input type="text" name="name" required ngModel><br>
         Type: <input type="text" name="type" ngModel><br>
         Date:<input type="date" name="startDate" ngModel><br>
-        Rounds Won:<input type="number" name="roundsWon" ngModel><br>
-        Rounds Lost:<input type="number" name="roundsLost" ngModel><br>
-        Rounds Drawn:<input type="number" name="roundsDrawn" ngModel><br>
+        Rounds Won:<input type="number" name="roundsWon" ngModel required><br>
+        Rounds Lost:<input type="number" name="roundsLost" ngModel required><br>
+        Rounds Drawn:<input type="number" name="roundsDrawn" ngModel required><br>
         Place:<input type="number" name="place" ngModel><br>
         Total Players:<input type="number" name="totalPlayers" ngModel><br>
         Description:<input type="text" name="description" ngModel><br>
@@ -109,12 +109,12 @@
       <button class="btn btn-primary btn-lg btn-block"  (click)="toggleUpdateView()">Show/Hide Update Tournament Form</button>
       <div *ngIf="showUpdateForm">
       <form name="updateTournament" class="myForm">
-          Name:<input type="text" name="name" [(ngModel)] = "oneTournament.name"/><br>
+          Name:<input type="text" name="name" [(ngModel)] = "oneTournament.name" required/><br>
           Type: <input type="text" name="type" [(ngModel)] = "oneTournament.type"/><br>
           Date:<input type="date" name="startDate" [(ngModel)] = "oneTournament.date"/><br>
-          Rounds Won:<input type="number" name="roundsWon" [(ngModel)] = "oneTournament.roundsWon"/><br>
-          Rounds Lost:<input type="number" name="roundsLost" [(ngModel)] = "oneTournament.roundsLost"/><br>
-          Rounds Drawn:<input type="number" name="roundsDrawn" [(ngModel)] = "oneTournament.roundsDrawn"/><br>
+          Rounds Won:<input type="number" name="roundsWon" [(ngModel)] = "oneTournament.roundsWon" required/><br>
+          Rounds Lost:<input type="number" name="roundsLost" [(ngModel)] = "oneTournament.roundsLost" required/><br>
+          Rounds Drawn:<input type="number" name="roundsDrawn" [(ngModel)] = "oneTournament.roundsDrawn" required/><br>
           Place:<input type="number" name="place" [(ngModel)] = "oneTournament.place"><br>
           Total Players:<input type="number" name="totalPlayers" [(ngModel)] = "oneTournament.totalPlayers"><br>
           Description:<input type="text" name="description" [(ngModel)] = "oneTournament.description"><br>

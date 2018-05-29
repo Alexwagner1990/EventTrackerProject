@@ -100,6 +100,19 @@ export class TournamentTrackerComponent implements OnInit {
 
   addTournament(newTournament: NgForm) {
     const tournament: Tournament = newTournament.value;
+    console.log(tournament.roundsDrawn);
+    if (tournament.name == null || tournament.name === '') {
+      tournament.name = 'Default';
+    }
+    if (tournament.roundsDrawn == null || tournament.roundsDrawn === undefined) {
+      tournament.roundsDrawn = 0;
+    }
+    if (tournament.roundsWon == null || tournament.roundsWon === undefined) {
+      tournament.roundsWon = 0;
+    }
+    if (tournament.roundsLost == null || tournament.roundsLost === undefined) {
+      tournament.roundsLost = 0;
+    }
     this.tournamentService.create(tournament).subscribe(
       data => {
         this.allTournaments();
@@ -138,34 +151,21 @@ export class TournamentTrackerComponent implements OnInit {
   // }
 
   updateTournament() {
-
-    const won = this.oneTournamentS.roundsWon;
-    const lost = this.oneTournamentS.roundsLost;
-    const draw = this.oneTournamentS.roundsDrawn;
-    this.allWins = this.allWins - this.oneTournamentS.roundsWon;
-    this.allLosses = this.allLosses - this.oneTournamentS.roundsLost;
-    this.allDraws = this.allDraws - this.oneTournamentS.roundsDrawn;
     this.tournamentService.update(this.oneTournament, this.oneTournament.id).subscribe(
       data => {
         this.searchResults = false;
         this.allTournaments();
 
-          this.allWins = this.allWins + data.roundsWon;
-
-          this.allLosses = this.allLosses + data.roundsLost;
-
-          this.allDraws = this.allDraws + data.roundsDrawn;
-
-        this.avgLosses = this.allLosses / this.listOfTournaments.length;
-        this.avgWins = this.allWins / this.listOfTournaments.length;
+        this.totalWins();
+        this.totalLosses();
+        this.totalDraws();
+        this.averageWins();
+        this.averageLosses();
         this.oneTournament = null;
         this.toggleUpdateView();
       },
       error => {
         console.log(error);
-        this.allWins = this.allWins + won;
-        this.allLosses = this.allLosses + lost;
-        this.allDraws = this.allDraws + draw;
       }
     );
   }
