@@ -1,68 +1,16 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/myStylesheet.css">
-  <script src="js/tournament.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <title>Tournament Tracker</title>
-</head>
+  <title>EventTrackerAngular</title>
+  <base href="/TournamentREST/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="styles.9f7de5a38adc84eb66e7.css"></head>
 <body>
-<h1 align="center">TOURNAMENT TRACKER</h1>
-<div id="addModal" class="modal">
-<div class="modal-content">
-<span id="closeButtonAdd" class="close">&times;</span>
-<h3 align="center" style="color:black">Add Tournament</h3>
-<form name="addTournament">
-    Name:<input type="text" name="title" required><br>
-    Type: <input type="text" name="type"><br>
-    Date:<input type="date" name="startDate"><br>
-    Rounds Won:<input type="number" name="roundsWon"><br>
-    Rounds Lost:<input type="number" name="roundsLost"><br>
-    Rounds Drawn:<input type="number" name="roundsDrawn"><br>
-    Place:<input type="number" name="place"><br>
-    Total Players:<input type="number" name="totalPlayers"><br>
-    Description:<input type="text" name="description"><br>
-    <button id="addTournamentButton" name="addTournamentButton">Add Tournament</button>
-</form>
-</div>
-</div>
-
-<div><button id="index">Show All Tournaments</button><button id="add">Add Tournament</button>
-<button id="search">Find Tournament(s)</button><br><button id="totalWins">Get Your Total Wins</button><button id="totalLoses">Get Your Total Losses</button><button id="totalDraws">Get Your Total Draws</button><br>
-<button id="averageWins">Get Your Average Wins</button><button id="averageLosses">Get Your Average Losses</button></div>
-<div id="updateModal" class="modal">
-<div class="modal-content">
-<span id="closeButton" class="close">&times;</span>
-<h3 align="center" style="color:black">Update Tournament</h3>
-<form name="updateTournament">
-	<input type="hidden" name="id" value=""><br>
-    Name:<input type="text" name="title" required><br>
-    Type: <input type="text" name="type"><br>
-    Date:<input type="date" name="startDate"><br>
-    Rounds Won:<input type="number" name="roundsWon"><br>
-    Rounds Lost:<input type="number" name="roundsLost"><br>
-    Rounds Drawn:<input type="number" name="roundsDrawn"><br>
-    Place:<input type="number" name="place"><br>
-    Total Players:<input type="number" name="totalPlayers"><br>
-    Description:<input type="text" name="description"><br>
-    <button id="updateTournamentButton" name="updateTournamentButton">Update Tournament</button>
-</form>
-</div>
-</div>
-<div id="allTournaments" align=center></div>
-
-
-
-
-
-
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>  
-</body>
+  <app-root></app-root>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script type="text/javascript" src="runtime.a66f828dca56eeb90e02.js"></script><script type="text/javascript" src="polyfills.2f4a59095805af02bd79.js"></script><script type="text/javascript" src="main.7db2d30664d2d5313dc5.js"></script></body>
 </html>

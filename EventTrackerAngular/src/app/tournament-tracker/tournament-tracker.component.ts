@@ -117,11 +117,11 @@ export class TournamentTrackerComponent implements OnInit {
       data => {
         this.allTournaments();
         this.searchResults = false;
-        this.allWins = this.allWins + tournament.roundsWon;
-        this.allLosses = this.allLosses + tournament.roundsLost;
-        this.allDraws = this.allDraws + tournament.roundsDrawn;
-        this.avgLosses = this.allLosses / this.listOfTournaments.length;
-        this.avgWins = this.allWins / this.listOfTournaments.length;
+        this.totalWins();
+        this.totalLosses();
+        this.totalDraws();
+        this.averageWins();
+        this.averageLosses();
         newTournament.reset();
         this.toggleAddView();
       },
@@ -171,18 +171,14 @@ export class TournamentTrackerComponent implements OnInit {
   }
 
   deleteTournament() {
-    const won = this.oneTournament.roundsWon;
-    const lost = this.oneTournament.roundsLost;
-    const draw = this.oneTournament.roundsDrawn;
     this.tournamentService.delete(this.oneTournament.id).subscribe(
       data => {
         this.allTournaments();
-        this.allWins = this.allWins - won;
-        this.allLosses = this.allLosses - lost;
-        this.allDraws = this.allDraws - draw;
-        this.avgLosses = this.allLosses / this.listOfTournaments.length;
-        this.avgWins = this.allWins / this.listOfTournaments.length;
-        this.oneTournament = null;
+        this.totalWins();
+        this.totalLosses();
+        this.totalDraws();
+        this.averageWins();
+        this.averageLosses();        this.oneTournament = null;
         this.searchResults = false;
       },
       error => console.log(error)

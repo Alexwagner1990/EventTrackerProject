@@ -12,7 +12,9 @@ import { HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class TournamentService {
-  private url = 'http://localhost:8080/api/tournament/';
+  private baseUrl = '/TournamentREST/';
+  // OLD private url = 'http://localhost:8080/api/tournament/';
+  private url = this.baseUrl + 'api/tournament/';
 
   ping() {
     return this.http.get<String>(`${this.url}ping`).pipe(
