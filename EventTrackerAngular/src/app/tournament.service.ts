@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import {catchError} from 'rxjs/operators';
 import { Observable, throwError} from 'rxjs';
+import { HttpHeaders } from '@angular/common/http';
+
 
 
 @Injectable({
@@ -30,6 +32,7 @@ export class TournamentService {
   }
 
   create(tournament) {
+    console.log(tournament);
     return this.http.post<Tournament>(`${this.url}new`, tournament).pipe(
       catchError((err) => {
       console.log(err);
@@ -48,7 +51,7 @@ export class TournamentService {
   }
 
   delete(id) {
-    return this.http.delete<Boolean>(`${this.url}${id}`).pipe(
+    return this.http.delete(`${this.url}delete/${id}`, id).pipe(
       catchError((err) => {
         console.log(err);
         return throwError(err);
@@ -75,7 +78,7 @@ export class TournamentService {
   }
 
   getAverageWins() {
-    return this.http.get<Number>(`${this.url}average/wins`).pipe(
+    return this.http.get<number>(`${this.url}average/wins`).pipe(
       catchError((err) => {
         console.log(err);
         return throwError(err);
@@ -84,7 +87,7 @@ export class TournamentService {
   }
 
   getAverageLosses() {
-    return this.http.get<Number>(`${this.url}average/losses`).pipe(
+    return this.http.get<number>(`${this.url}average/losses`).pipe(
       catchError((err) => {
         console.log(err);
         return throwError(err);
@@ -93,7 +96,7 @@ export class TournamentService {
   }
 
   getTotalWins() {
-    return this.http.get<Number>(`${this.url}all/wins`).pipe(
+    return this.http.get<number>(`${this.url}all/wins`).pipe(
       catchError((err) => {
         console.log(err);
         return throwError(err);
@@ -102,7 +105,7 @@ export class TournamentService {
   }
 
   getTotalLosses() {
-    return this.http.get<Number>(`${this.url}all/losses`).pipe(
+    return this.http.get<number>(`${this.url}all/losses`).pipe(
       catchError((err) => {
         console.log(err);
         return throwError(err);
@@ -110,7 +113,7 @@ export class TournamentService {
     );
   }
   getTotalDraws() {
-    return this.http.get<Number>(`${this.url}all/draws`).pipe(
+    return this.http.get<number>(`${this.url}all/draws`).pipe(
       catchError((err) => {
         console.log(err);
         return throwError(err);

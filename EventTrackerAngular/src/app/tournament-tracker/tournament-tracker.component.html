@@ -1,6 +1,7 @@
 <h1>Tournament Tracker</h1>
 <!--Add Tournament Modal-->
-<div id="addModal" class="modal">
+<!--NOTE: MODAL NOT WORKING - TRY PLAYING WITH THIS LATER WHEN JQUERY IS CONFIRMED TO HAVE BEEN IMPLEMENTED CORRECTLY-->
+<!-- <div id="addModal" class="modal">
   <div class="modal-content">
   <span id="closeButtonAdd" class="close" (click)="closeAddModal()">&times;</span>
   <h3 align="center" style="color:black">Add Tournament</h3>
@@ -17,9 +18,10 @@
       <button id="addTournamentButton" name="addTournamentButton" (click)="addTournament(newTournament)">Add Tournament</button>
   </form>
   </div>
-  </div>
+  </div> -->
   <!--Update Tournament Modal-->
-  <div id="updateModal" class="modal">
+  <!--NOTE: MODAL NOT WORKING - TRY PLAYING WITH THIS LATER WHEN JQUERY IS CONFIRMED TO HAVE BEEN IMPLEMENTED CORRECTLY-->
+  <!-- <div id="updateModal" class="modal">
   <div class="modal-content">
   <span id="closeButton" class="close" (click)="closeUpdateModal()">&times;</span>
   <h3 align="center" style="color:black">Update Tournament</h3>
@@ -37,19 +39,50 @@
       <button id="updateTournamentButton" name="updateTournamentButton" (click)="updateTournament(updatedTournament)">Update Tournament</button>
   </form>
   </div>
+  </div> -->
+  <!--ADD AND SEARCH FUNCTIONALITY-->
+  <div>
+    <!-- ADD BUTTON MODAL - IMPLEMENT WHEN MODAL WORKING <button id="add" (click)="showAddModal()">Add Tournament</button> -->
+    <button id="add" class="btn btn-primary btn-lg btn-block" (click)="toggleAddView()">Show/Hide Add Tournament Form</button>
+      <div *ngIf="showAddForm">
+        <form name="addTournament" class="myForm" #newTournament= "ngForm">
+        Name:<input type="text" name="name" required ngModel><br>
+        Type: <input type="text" name="type" ngModel><br>
+        Date:<input type="date" name="startDate" ngModel><br>
+        Rounds Won:<input type="number" name="roundsWon" ngModel><br>
+        Rounds Lost:<input type="number" name="roundsLost" ngModel><br>
+        Rounds Drawn:<input type="number" name="roundsDrawn" ngModel><br>
+        Place:<input type="number" name="place" ngModel><br>
+        Total Players:<input type="number" name="totalPlayers" ngModel><br>
+        Description:<input type="text" name="description" NgModel><br>
+        <button align="center" id="addTournamentButton" class="btn btn-primary btn-lg" name="addTournamentButton" (click)="addTournament(newTournament)">Add Tournament</button>
+        </form>
+      </div>
+    <button id="search" class="btn btn-primary btn-lg btn-block" (click)="toggleSearchView()">Find Tournament(s)</button>
+    <div *ngIf="showSearch">
+      <form #keyword="ngForm">
+        <input type="text" name="searchKeyword" [(ngModel)] = "searchKeyword"/><br>
+        <button align="center" id="searchButton" class="btn btn-primary btn-lg" name="searchButton" (click)="findTournament()">Find Tournaments</button>
+      </form>
+    </div>
   </div>
-<!--Buttons and Stats badges-->
-  <div><button id="add" (click)="showAddModal()">Add Tournament</button>
-  <button id="search">Find Tournament(s)</button><br>
-  Total Wins: <span class="badge badge-info">{{totalWins()}}</span><br>
-  Total Losses: <span class="badge badge-info">{{totalLosses()}}</span><br>
-  Total Draws: <span class="badge badge-info">{{totalDraws()}}</span><br>
-  Average Wins: <span class="badge badge-info">{{averageWins()}}</span><br>
-  Average Losses: <span class="badge badge-info">{{averageLosses()}}</span><br>
-</div>
+ <!-- AGGREGATION STATS -->
+  <!-- <div *ngIf="(listOfTournaments != null || listOfTournaments.length > 0) && !oneTournament">
+    <h3>Total Wins: <span class="badge badge-info">{{allWins}}</span></h3>
+    <h3>Total Losses: <span class="badge badge-info">{{allLosses}}</span></h3>
+    <h3>Total Draws: <span class="badge badge-info">{{allDraws}}</span></h3>
+    <h3>Average Wins: <span class="badge badge-info">{{avgWins}}</span></h3>
+    <h3>Average Losses: <span class="badge badge-info">{{avgLosses}}</span></h3>
+    <hr>
+  </div> -->
   <!--Display All Tournaments-->
-  <div *ngIf="(listOfTournaments != null || listOfTournaments.length > 0) && !oneTournament">
-     <table>
+  <div *ngIf="(listOfTournaments != null) && !oneTournament && !searchResults" align="center">
+    <h3>Total Wins: <span class="badge badge-info">{{allWins}}</span></h3>
+    <h3>Total Losses: <span class="badge badge-info">{{allLosses}}</span></h3>
+    <h3>Total Draws: <span class="badge badge-info">{{allDraws}}</span></h3>
+    <h3>Average Wins: <span class="badge badge-info">{{avgWins}}</span></h3>
+    <h3>Average Losses: <span class="badge badge-info">{{avgLosses}}</span></h3>
+    <table>
        <thead>
          <tr><td>Tournament Name</td><td>Tournament Type</td><td>Tournament Start Date</td></tr>
        </thead>
@@ -65,33 +98,49 @@
       <h3>Tournament Name: {{oneTournament.name}}</h3>
       <h3>Tournament Type: {{oneTournament.type}}</h3>
       <h3>Tournament Start Date: {{oneTournament.startDate}}</h3>
-      <h3>Description:</h3><p>{{oneTournament.description}}</p>
+      <h3>Description:</h3><h5>{{oneTournament.description}}</h5>
       <hr>
-      <h3>Wins: {{oneTournament.wins}}</h3>
-      <h3>Losses: {{oneTournament.losses}}</h3>
-      <h3>Draws: {{oneTournament.draws}}</h3>
+      <h3>Wins: {{oneTournament.roundsWon}}</h3>
+      <h3>Losses: {{oneTournament.roundsLost}}</h3>
+      <h3>Draws: {{oneTournament.roundsDrawn}}</h3>
       <h3>Place: {{oneTournament.place}}</h3>
       <h3>Total Players: {{oneTournament.totalPlayers}}</h3>
-      <button class="btn-lrg" (click)="showUpdateModal(oneTournament.id)">Update This Tournament</button>
-      <button class="btn-lrg" (click)="oneTournament = null">Back</button>
+    <!-- <button class="btn-lrg" (click)="showUpdateModal(oneTournament.id)">Update This Tournament</button> -->
+      <button class="btn btn-primary btn-lg btn-block"  (click)="toggleUpdateView()">Show/Hide Update Tournament Form</button>
+      <div *ngIf="showUpdateForm">
+      <form name="updateTournament" class="myForm">
+          Name:<input type="text" name="name" [(ngModel)] = "oneTournament.name"/><br>
+          Type: <input type="text" name="type" [(ngModel)] = "oneTournament.type"/><br>
+          Date:<input type="date" name="startDate" [(ngModel)] = "oneTournament.date"/><br>
+          Rounds Won:<input type="number" name="roundsWon" [(ngModel)] = "oneTournament.roundsWon"/><br>
+          Rounds Lost:<input type="number" name="roundsLost" [(ngModel)] = "oneTournament.roundsLost"/><br>
+          Rounds Drawn:<input type="number" name="roundsDrawn" [(ngModel)] = "oneTournament.roundsDrawn"/><br>
+          Place:<input type="number" name="place" [(ngModel)] = "oneTournament.place"><br>
+          Total Players:<input type="number" name="totalPlayers" [(ngModel)] = "oneTournament.totalPlayers"><br>
+          Description:<input type="text" name="description" [(ngModel)] = "oneTournament.description"><br>
+        <button align="center" id="updateTournamentButton"  class="btn btn-primary btn-lg" name="updateTournamentButton" (click)="updateTournament()">Update Tournament</button>
+      </form>
+      </div>
+      <button class="btn btn-primary btn-lg btn-block"  (click)="deleteTournament()">DELETE</button>
+      <button class="btn btn-primary btn-lg btn-block"  (click)="oneTournament = null">Back</button>
   </div>
   <!--Display Search Results of Tournaments-->
-  <div *ngIf="!oneTournament && searchedTournaments != null && searchedTournaments.length > 0">
-    <div *ngIf="(listOfTournaments != null || listOfTournaments.length > 0) && !oneTournament">
+  <div *ngIf="!oneTournament && searchedTournaments != null && searchResults">
+      <h1>Results</h1>
       <table>
         <thead>
           <tr><td>Tournament Name</td><td>Tournament Type</td><td>Tournament Start Date</td></tr>
         </thead>
         <tbody>
-          <tr *ngFor="let t of listOfTournaments" (click)="showTournament(t)">
+          <tr *ngFor="let t of searchedTournaments" (click)="showTournament(t)">
             <td>{{t.name}}</td><td>{{t.type}}</td><td>{{t.startDate}}</td>
           </tr>
         </tbody>
       </table>
-   </div>
+      <button class="btn btn-primary btn-lg btn-block" (click)="allTournaments()">Back to All Tournaments</button>
   </div>
   <!--If no search results found-->
-  <div>
+  <div *ngIf="searchedTournaments==null">
     <h1>No results found, try another search!</h1>
-    <button class="btn-lrg" (click)="allTournaments()">Back to All Tournaments</button>
+    <button class="btn btn-primary btn-lg btn-block" (click)="allTournaments()">Back to All Tournaments</button>
   </div>

@@ -19,9 +19,20 @@ export class TournamentTrackerComponent implements OnInit {
   updateModalClose = document.getElementById('closeButton');
   addModalClose = document.getElementById('closeButtonAdd');
   searchedTournaments = [];
+  showSearch = false;
+  showAddForm = false;
+  showUpdateForm = false;
+  allWins = 0;
+  allLosses = 0;
+  allDraws = 0;
+  avgWins = 0;
+  avgLosses = 0;
+  searchKeyword: String = '';
+  searchResults = false;
 
 
   allTournaments() {
+    this.searchResults = false;
     this.oneTournament = null;
     this.searchedTournaments = [];
     this.tournamentService.index().subscribe(
@@ -34,6 +45,7 @@ export class TournamentTrackerComponent implements OnInit {
 
   showTournament(tourney: Tournament) {
     this.oneTournament = tourney;
+    this.searchResults = false;
   }
 
   // displayTournament(id: Number) {
@@ -44,65 +56,120 @@ export class TournamentTrackerComponent implements OnInit {
   //     error => console.log(error)
   //   );
   // }
-
-  findTournament(keyword) {
+  toggleSearchView() {
+      if (this.showSearch === false) {
+        this.showSearch = true;
+      } else {
+        this.showSearch = false;
+      }
+  }
+  findTournament() {
+    this.oneTournament = null;
+    this.listOfTournaments = [];
     this.searchedTournaments = [];
-    this.tournamentService.search(keyword).subscribe(
+    this.tournamentService.search(this.searchKeyword).subscribe(
       data => {
         if (data.length > 0) {
+          this.searchResults = true;
+          this.searchKeyword = '';
           this.searchedTournaments = data;
         } else {
+          this.searchKeyword = '';
           this.searchedTournaments = null;
         }
       },
       error => console.log(error)
     );
   }
-
-  showAddModal() {
-    this.addModal.setAttribute('style', 'display = block');
+  toggleAddView() {
+    if (this.showAddForm === false) {
+      this.showAddForm = true;
+    } else {
+      this.showAddForm = false;
+    }
   }
+  // COME BACK WHEN JQUERY WORKS
+  // showAddModal() {
+  //   this.addModal.setAttribute('style', 'display = block');
+  // }
 
-  closeAddModal() {
-    this.addModal.setAttribute('style', 'display = none');
-  }
+  // closeAddModal() {
+  //   this.addModal.setAttribute('style', 'display = none');
+  // }
 
   addTournament(newTournament: NgForm) {
     const tournament: Tournament = newTournament.value;
-    this.tournamentService.create(newTournament).subscribe(
+    this.tournamentService.create(tournament).subscribe(
       data => {
+        this.allTournaments();
+        this.searchResults = false;
+        this.allWins = this.allWins + tournament.roundsWon;
+        this.allLosses = this.allLosses + tournament.roundsLost;
+        this.allDraws = this.allDraws + tournament.roundsDrawn;
+        this.avgLosses = this.allLosses / this.listOfTournaments.length;
+        this.avgWins = this.allWins / this.listOfTournaments.length;
         newTournament.reset();
-        this.allTournaments();
+        this.toggleAddView();
       },
       error => console.log(error)
     );
   }
 
-  showUpdateModal(id) {
-    this.id = id;
-    this.updateModal.setAttribute('style', 'display = block');
+  toggleUpdateView() {
+    if (this.showUpdateForm === false) {
+      this.showUpdateForm = true;
+    } else {
+      this.showUpdateForm = false;
+    }
   }
 
-  closeUpdateModal() {
-    this.id = 0;
-    this.updateModal.setAttribute('style', 'display = none');
-  }
+  // COME BACK WHEN JQUERY WORKS
+  // showUpdateModal(id) {
+  //   this.id = id;
+  //   this.updateModal.setAttribute('style', 'display = block');
+  // }
 
-  updateTournament(updateTournament: NgForm) {
-    const newUpdateTournament: Tournament = updateTournament.value;
-    this.tournamentService.update(updateTournament, newUpdateTournament.getId()).subscribe(
+  // closeUpdateModal() {
+  //   this.id = 0;
+  //   this.updateModal.setAttribute('style', 'display = none');
+  // }
+
+  updateTournament() {
+    this.allWins = this.allWins - this.oneTournament.roundsWon;
+    this.allLosses = this.allLosses - this.oneTournament.roundsLost;
+    this.allDraws = this.allDraws - this.oneTournament.roundsDrawn;
+    this.tournamentService.update(this.oneTournament, this.oneTournament.id).subscribe(
       data => {
-        updateTournament.reset();
+        this.searchResults = false;
         this.allTournaments();
+        this.allWins = this.allWins + this.oneTournament.roundsWon;
+        this.allLosses = this.allLosses + this.oneTournament.roundsLost;
+        this.allDraws = this.allDraws + this.oneTournament.roundsDrawn;
+        this.avgLosses = this.allLosses / this.listOfTournaments.length;
+        this.avgWins = this.allWins / this.listOfTournaments.length;
+        this.oneTournament = null;
+        this.toggleUpdateView();
       },
-      error => console.log(error)
+      error => {
+        console.log(error);
+        this.allWins = this.allWins + this.oneTournament.roundsWon;
+        this.allLosses = this.allLosses + this.oneTournament.roundsLost;
+        this.allDraws = this.allDraws + this.oneTournament.roundsDrawn;
+      }
     );
   }
 
-  deleteTournament(id: Number) {
-    this.tournamentService.delete(id).subscribe(
+  deleteTournament() {
+    this.tournamentService.delete(this.oneTournament.id).subscribe(
       data => {
         this.allTournaments();
+        this.allWins = this.allWins - this.oneTournament.roundsWon;
+        this.allLosses = this.allLosses - this.oneTournament.roundsLost;
+        this.allDraws = this.allDraws - this.oneTournament.roundsDrawn;
+        this.avgLosses = this.allLosses / this.listOfTournaments.length;
+        this.avgWins = this.allWins / this.listOfTournaments.length;
+        this.oneTournament = null;
+        this.searchResults = false;
       },
       error => console.log(error)
     );
@@ -111,7 +178,7 @@ export class TournamentTrackerComponent implements OnInit {
   averageWins() {
     this.tournamentService.getAverageWins().subscribe(
       data => {
-        return data;
+        this.avgWins = data;
       },
       error => console.log(error)
     );
@@ -120,7 +187,7 @@ export class TournamentTrackerComponent implements OnInit {
   averageLosses() {
     this.tournamentService.getAverageLosses().subscribe(
       data => {
-        return data;
+        this.avgLosses = data;
       },
       error => console.log(error)
     );
@@ -129,7 +196,7 @@ export class TournamentTrackerComponent implements OnInit {
   totalLosses() {
     this.tournamentService.getTotalLosses().subscribe(
       data => {
-        return data;
+        this.allLosses = data;
       },
       error => console.log(error)
     );
@@ -137,7 +204,7 @@ export class TournamentTrackerComponent implements OnInit {
   totalDraws() {
     this.tournamentService.getTotalDraws().subscribe(
       data => {
-        return data;
+        this.allDraws = data;
       },
       error => console.log(error)
     );
@@ -145,7 +212,7 @@ export class TournamentTrackerComponent implements OnInit {
   totalWins() {
     this.tournamentService.getTotalWins().subscribe(
       data => {
-        return data;
+        this.allWins = data;
       },
       error => console.log(error)
     );
@@ -155,8 +222,14 @@ export class TournamentTrackerComponent implements OnInit {
 
   ngOnInit() {
     this.allTournaments();
-    this.closeUpdateModal();
-    this.closeAddModal();
+    this.averageWins();
+    this.totalDraws();
+    this.totalLosses();
+    this.totalWins();
+    this.averageLosses();
+    // TRY THIS WHEN JQUERY WORKS
+    // this.closeUpdateModal();
+    // this.closeAddModal();
   }
 
 }
