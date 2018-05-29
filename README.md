@@ -1,6 +1,9 @@
 ## Skill Distillery EventTracker Project
 
 ### How to Use This Project
+ANGULAR DESCRIPTION:
+This project can be run via an Angular interface. Run the app form the project folder with the command ng serve -o. This command will open the project in a browser window on the address localhost:4200.
+
 UPDATED DESCRIPTION:
 The user can access the Tournament Tracker app via the web address http://13.58.147.59:8080/EventTracker. From the home page, tournaments can be manipulated via the web buttons, all form the same page.
 
@@ -30,6 +33,9 @@ The user can find the average number of rounds he or she wins per tournament wit
 The user can find the average number of rounds he or she loses per tournament with the path /api/tournament/average/losses (GET request)
 
 ### Project Description
+ANGULAR DESCRIPTION:
+This project now has an Angular front end, meaning tournaments can be manipulated with Angular tools. Functionality otherwise has not changed.
+
 UPDATED DESCRIPTION:
 The user can interact with the Event Tracker web app from the front-end by visiting the address http://13.58.147.59:8080/EventTracker/. By selecting the corresponding buttons, the user can add, edit, view, and delete tournament info from a single web page, with views manipulated by JavaScript through RESTful controller/database routes. The user can add tournaments, update tournaments, view all tournaments, search for tournaments, as well as get information about total and average tournament wins, losses and draws.
 
@@ -39,6 +45,11 @@ Growing up I participated in a lot of chess tournaments, so I decided to write a
 The app thus far does not have a front end, but data can still be sent and received from Postman. So far a client can get all the tournaments, update a tournament, find a specific tournament by a keyword (in the name, description or type), and delete a tournament. Other functionality will be added to aggregate data in more ways at a later date.
 
 ### Lessons Learned
+ANGULAR LESSON:
+Working with Angular made me really appreciate just how "expensive" it is for programs to make trips to the database. I had previously written controller routes that calculated averages and totals of wins, losses and draws, but calling back to the database every time one of these values needed to be updated ended up straining my local machine - the browser would crawl to a halt. Since I had already retrieved all the tournaments, I needed to refactor my approach to handle that logic on the front-end programatically, without re-establishing a database connection.
+
+For this reason, I think I should have utilized pipes better. If I'm grabbing all the tournaments in some kind of index function, further filtering could probably be done more effectively via pipes on the Angular side. In the future, I'll likely use pipes when I don't need to make another trip to the database to conserve processing power.
+
 UPDATED DESCRIPTION:
 Going into this project, I thought I had a better handle on event listeners - I understood them as functions that were "bundled" to particular document objects at runtime, but from running the program it became clear that the event listeners weren't binding at runtime as I thought. To get around this problem I tried separating the event listener functions from the actual "business" of the function. For instance, I found more success in separating the display indexing function from the event listener that activated the index button.
 
