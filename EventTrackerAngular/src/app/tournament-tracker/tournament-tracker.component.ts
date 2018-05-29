@@ -12,6 +12,7 @@ import { Tournament } from '../models/tournament';
 export class TournamentTrackerComponent implements OnInit {
 
   oneTournament = null;
+  oneTournamentS = null;
   listOfTournaments = [];
   id = 0;
   updateModal = document.getElementById('updateModal');
@@ -118,8 +119,10 @@ export class TournamentTrackerComponent implements OnInit {
   toggleUpdateView() {
     if (this.showUpdateForm === false) {
       this.showUpdateForm = true;
+      this.oneTournamentS = this.oneTournament;
     } else {
       this.showUpdateForm = false;
+      this.oneTournamentS = null;
     }
   }
 
@@ -135,16 +138,24 @@ export class TournamentTrackerComponent implements OnInit {
   // }
 
   updateTournament() {
-    this.allWins = this.allWins - this.oneTournament.roundsWon;
-    this.allLosses = this.allLosses - this.oneTournament.roundsLost;
-    this.allDraws = this.allDraws - this.oneTournament.roundsDrawn;
+
+    const won = this.oneTournamentS.roundsWon;
+    const lost = this.oneTournamentS.roundsLost;
+    const draw = this.oneTournamentS.roundsDrawn;
+    this.allWins = this.allWins - this.oneTournamentS.roundsWon;
+    this.allLosses = this.allLosses - this.oneTournamentS.roundsLost;
+    this.allDraws = this.allDraws - this.oneTournamentS.roundsDrawn;
     this.tournamentService.update(this.oneTournament, this.oneTournament.id).subscribe(
       data => {
         this.searchResults = false;
         this.allTournaments();
-        this.allWins = this.allWins + this.oneTournament.roundsWon;
-        this.allLosses = this.allLosses + this.oneTournament.roundsLost;
-        this.allDraws = this.allDraws + this.oneTournament.roundsDrawn;
+
+          this.allWins = this.allWins + data.roundsWon;
+
+          this.allLosses = this.allLosses + data.roundsLost;
+
+          this.allDraws = this.allDraws + data.roundsDrawn;
+
         this.avgLosses = this.allLosses / this.listOfTournaments.length;
         this.avgWins = this.allWins / this.listOfTournaments.length;
         this.oneTournament = null;
@@ -152,20 +163,23 @@ export class TournamentTrackerComponent implements OnInit {
       },
       error => {
         console.log(error);
-        this.allWins = this.allWins + this.oneTournament.roundsWon;
-        this.allLosses = this.allLosses + this.oneTournament.roundsLost;
-        this.allDraws = this.allDraws + this.oneTournament.roundsDrawn;
+        this.allWins = this.allWins + won;
+        this.allLosses = this.allLosses + lost;
+        this.allDraws = this.allDraws + draw;
       }
     );
   }
 
   deleteTournament() {
+    const won = this.oneTournament.roundsWon;
+    const lost = this.oneTournament.roundsLost;
+    const draw = this.oneTournament.roundsDrawn;
     this.tournamentService.delete(this.oneTournament.id).subscribe(
       data => {
         this.allTournaments();
-        this.allWins = this.allWins - this.oneTournament.roundsWon;
-        this.allLosses = this.allLosses - this.oneTournament.roundsLost;
-        this.allDraws = this.allDraws - this.oneTournament.roundsDrawn;
+        this.allWins = this.allWins - won;
+        this.allLosses = this.allLosses - lost;
+        this.allDraws = this.allDraws - draw;
         this.avgLosses = this.allLosses / this.listOfTournaments.length;
         this.avgWins = this.allWins / this.listOfTournaments.length;
         this.oneTournament = null;

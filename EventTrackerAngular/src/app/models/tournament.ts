@@ -8,6 +8,7 @@ export class Tournament {
   place: number;
   type: string;
   totalPlayers: number;
+  description: string;
 
   getId() {
     return this.id;
@@ -18,7 +19,7 @@ export class Tournament {
   }
 
   constructor(id?: number, name?: string, startDate?: Date, roundsWon?: number, roundsLost?: number,
-  roundsDrawn?: number, place?: number, type?: string, totalPlayers?: number) {
+  roundsDrawn?: number, place?: number, type?: string, totalPlayers?: number, description?: string) {
     this.id = id;
     this.name = name;
     this.startDate = startDate;
@@ -28,6 +29,7 @@ export class Tournament {
     this.place = place;
     this.type = type;
     this.totalPlayers = totalPlayers;
+    this.description = description;
 
   }
 }
