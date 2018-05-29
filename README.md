@@ -2,7 +2,7 @@
 
 ### How to Use This Project
 ANGULAR DESCRIPTION:
-This project can be run via an Angular interface. Run the app form the project folder with the command ng serve -o. This command will open the project in a browser window on the address localhost:4200.
+This project can be opened via web browser by visiting the address http://13.58.147.59:8080/TournamentREST/.
 
 UPDATED DESCRIPTION:
 The user can access the Tournament Tracker app via the web address http://13.58.147.59:8080/EventTracker. From the home page, tournaments can be manipulated via the web buttons, all form the same page.
